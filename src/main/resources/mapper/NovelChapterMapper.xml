@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.boot.mapper.NovelChapterMapper">
+
+    <resultMap id="NovelChapterAndNovelByStepResultMap" type="com.wu.boot.pojo.NovelChapter">
+        <id property="id" column="id"></id>
+        <result property="chapterName" column="chapter_name"></result>
+        <result property="chapterAddress" column="chapter_address"></result>
+        <result property="isLocked" column="is_locked"></result>
+        <result property="chapterNumber" column="chapter_number"></result>
+        <result property="nId" column="n_id"></result>
+<!--    association中 column写的是分步查询的条件   -->
+<!--    association中 fetchType="lazy" 当开启了全局的延迟加载 可通过此属性单独设定是否开启懒加载or立即加载    -->
+        <association property="novel"
+                     select="com.wu.boot.mapper.NovelMapper.getNovelChapterAndNovelByStepTwo"
+                     column="n_id">
+        </association>
+    </resultMap>
+<!--    NovelChapter getNovelChapterAndNovelByStepOne(@Param("id") Long id);-->
+    <select id="getNovelChapterAndNovelByStepOne" resultMap="NovelChapterAndNovelByStepResultMap">
+        select * from novel.novel_chapter where id = #{id}
+    </select>
+
+
+<!--    List<NovelChapter> getNovelAndNovelChapterByStepTwo(@Param("id") Long id);-->
+    <select id="getNovelAndNovelChapterByStepTwo" resultType="com.wu.boot.pojo.NovelChapter">
+        select * from novel.novel_chapter where n_id = #{id}
+    </select>
+
+</mapper>

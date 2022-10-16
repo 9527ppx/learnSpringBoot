@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.boot.mapper.UserMapper">
+<!--    User getUser(String host);-->
+<!--    <select id="getUser" resultType="com.wu.boot.pojo.User">-->
+<!--        select Host,User from user where Host = #{host}-->
+<!--    </select>-->
+</mapper>

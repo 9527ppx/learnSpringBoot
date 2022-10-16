@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wu.boot.mapper.NovelMapper">
+    <!--    User getUser(String host);-->
+    <!--    <select id="getUser" resultType="com.wu.boot.pojo.User">-->
+    <!--        select Host,User from user where Host = #{host}-->
+    <!--    </select>-->
+
+<!--    Novel getNovelChapterAndNovelByStepTwo(@Param("nId") Long nId);-->
+    <select id="getNovelChapterAndNovelByStepTwo" resultType="com.wu.boot.pojo.Novel">
+        select * from novel.novel where id = #{nId}
+    </select>
+
+<!--    Novel getNovelAndNovelChapterByStepOne(@Param("id") Long id);-->
+<!--    这里的id是novel表id 根据novel表id 对NovelChapter进行查询-->
+    <resultMap id="NovelAndNovelChapterResultMap" type="com.wu.boot.pojo.Novel">
+        <id property="id" column="id"></id>
+        <collection property="novelChapters"
+                    select="com.wu.boot.mapper.NovelChapterMapper.getNovelAndNovelChapterByStepTwo"
+                    column="id">
+        </collection>
+    </resultMap>
+    <select id="getNovelAndNovelChapterByStepOne" resultMap="NovelAndNovelChapterResultMap">
+        select * from novel.novel where id = #{id}
+    </select>
+
+</mapper>
